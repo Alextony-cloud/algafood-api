@@ -12,15 +12,17 @@ import io.github.alextonycloud.algafood.domain.model.Restaurante;
 import io.github.alextonycloud.algafood.domain.repository.CozinhaRepository;
 import io.github.alextonycloud.algafood.domain.repository.RestauranteRepository;
 
-public class RemocaoCozinhaMain  {
+public class RemocaoRestauranteMain  {
 
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)
 				.web(WebApplicationType.NONE)
 				.run(args);
 		
-		CozinhaRepository cadastroCozinha = applicationContext.getBean(CozinhaRepository.class);		Cozinha cozinha = new Cozinha();
-		cozinha.setId(1L);
-		cadastroCozinha.remover(cozinha);
+		RestauranteRepository restauranteRepository = applicationContext.getBean(RestauranteRepository.class);		
+		Restaurante restaurante = new Restaurante();
+		restaurante.setId(1L);
+		restauranteRepository.remover(restaurante);
+		
 	}
 }

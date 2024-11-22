@@ -1,5 +1,6 @@
 package io.github.alextonycloud.algafood.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.boot.WebApplicationType;
@@ -12,15 +13,21 @@ import io.github.alextonycloud.algafood.domain.model.Restaurante;
 import io.github.alextonycloud.algafood.domain.repository.CozinhaRepository;
 import io.github.alextonycloud.algafood.domain.repository.RestauranteRepository;
 
-public class RemocaoCozinhaMain  {
+public class ConsultaRestauranteMain  {
 
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)
 				.web(WebApplicationType.NONE)
 				.run(args);
 		
-		CozinhaRepository cadastroCozinha = applicationContext.getBean(CozinhaRepository.class);		Cozinha cozinha = new Cozinha();
-		cozinha.setId(1L);
-		cadastroCozinha.remover(cozinha);
+		RestauranteRepository restauranteRepository = applicationContext.getBean(RestauranteRepository.class);		
+		
+		
+		List<Restaurante> restaurante =  restauranteRepository.listar();
+		
+		for (Restaurante restaurantes : restaurante) {
+			System.out.println(restaurantes.getNome());
+			System.out.println(restaurantes.getTaxaFrete());
+		}
 	}
 }

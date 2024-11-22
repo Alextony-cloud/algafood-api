@@ -6,9 +6,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.springframework.stereotype.Component;
+
 import io.github.alextonycloud.algafood.domain.model.Cozinha;
 import io.github.alextonycloud.algafood.domain.repository.CozinhaRepository;
 
+@Component
 public class CozinhaRepositoryImpl implements CozinhaRepository{
 
 	@PersistenceContext

@@ -1,26 +1,18 @@
 package io.github.alextonycloud.algafood.domain.model;
 
-import java.math.BigDecimal;
-import java.util.Objects;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
+@Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@NoArgsConstructor
-@Entity
-public class Restaurante {
+public class FormaPagamento {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +20,6 @@ public class Restaurante {
 	private Long id;
 	
 	@Column(nullable = false)
-	private String nome;
+	private String descricao;
 
-	@Column(nullable = false)
-	private BigDecimal taxaFrete;
-
-	@ManyToOne
-	@JoinColumn(name = "cozinha_id", nullable = false)
-	private Cozinha cozinha;
 }
