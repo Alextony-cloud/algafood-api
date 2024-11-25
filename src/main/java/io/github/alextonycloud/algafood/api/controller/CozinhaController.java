@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.github.alextonycloud.algafood.api.model.CozinhasXmlWrapper;
 import io.github.alextonycloud.algafood.domain.model.Cozinha;
 import io.github.alextonycloud.algafood.domain.repository.CozinhaRepository;
 
 @RestController
-@RequestMapping(value = "api/cozinhas", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "api/cozinhas")
 public class CozinhaController {
 	
 	@Autowired
@@ -27,6 +28,11 @@ public class CozinhaController {
 	public ResponseEntity<List<Cozinha>> listar() {
 		List <Cozinha> cozinhas = cozinhaRepository.listar();
 		return ResponseEntity.ok(cozinhas);
+	}
+	
+	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
+	public CozinhasXmlWrapper listarXml() {
+		return new CozinhasXmlWrapper(cozinhaRepository.listar());
 	}
 	
 	@GetMapping("/{id}")
