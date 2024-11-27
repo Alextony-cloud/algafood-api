@@ -25,6 +25,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriBuilder;
 
 import io.github.alextonycloud.algafood.api.model.CozinhasXmlWrapper;
+import io.github.alextonycloud.algafood.domain.exception.EntidadeEmUsoException;
+import io.github.alextonycloud.algafood.domain.exception.EntidadeNaoEncontradaException;
 import io.github.alextonycloud.algafood.domain.model.Cozinha;
 import io.github.alextonycloud.algafood.domain.repository.CozinhaRepository;
 import io.github.alextonycloud.algafood.domain.service.CozinhaService;
@@ -74,7 +76,7 @@ public class CozinhaController {
 
 		if (cozinhaAtual != null) {
 			BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
-			cozinhaRepository.salvar(cozinhaAtual);
+			cozinhaService.salvar(cozinhaAtual);
 			return ResponseEntity.accepted().body(cozinhaAtual);
 		}
 		return ResponseEntity.notFound().build();
@@ -83,15 +85,13 @@ public class CozinhaController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Cozinha> deletar(@PathVariable Long id) {
 		try {
-			Cozinha cozinha = cozinhaRepository.buscar(id);
-			if (cozinha != null) {
-				cozinhaRepository.remover(cozinha);
-				return ResponseEntity.noContent().build();
-			}
-			return ResponseEntity.notFound().build();
-		} catch (DataIntegrityViolationException e) {
+			cozinhaService.excluir(id);
+			return ResponseEntity.noContent().build();
+			
+		}catch (EntidadeEmUsoException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
+		}catch (EntidadeNaoEncontradaException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
-
 	}
 }
