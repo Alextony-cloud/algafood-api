@@ -65,7 +65,7 @@ public class RestauranteController {
 	
 	@GetMapping("/por-nome")
 	public ResponseEntity<List<Restaurante>> restaurantesPorTaxaFrete(String nome, Long id) {
-		List<Restaurante> restaurantes = restauranteService.findByNomeContainingAndCozinhaId(nome, id);
+		List<Restaurante> restaurantes = restauranteService.buscarporNome(nome, id);
 		if (!restaurantes.isEmpty()) {
 			return ResponseEntity.ok().body(restaurantes);
 		} else {

@@ -58,4 +58,8 @@ public class RestauranteService {
 		return restauranteRepository.countByCozinhaId(id);
 	}
 
+	public List<Restaurante> buscarporNome(String nome, Long id) {
+		return restauranteRepository.buscarPorNome(nome, id);
+	}
+
 }
