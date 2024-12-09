@@ -1,17 +1,19 @@
 package io.github.alextonycloud.algafood.domain.repository;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import io.github.alextonycloud.algafood.domain.model.Cozinha;
 
-public interface CozinhaRepository {
+@Repository
+public interface CozinhaRepository extends JpaRepository<Cozinha, Long> {
 	
-	public List<Cozinha> listar();
+	List<Cozinha> findCozinhasByNomeContaining(String nome);
 	
-	public Cozinha salvar(Cozinha cozinha) ;
+	Optional<Cozinha> findByNome(String nome);
 	
-	public Cozinha buscar(Long id);
 	
-	public void remover(Long id);
-
 }

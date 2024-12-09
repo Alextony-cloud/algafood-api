@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriBuilderFactory;
 
+import io.github.alextonycloud.algafood.domain.exception.EntidadeEmUsoException;
 import io.github.alextonycloud.algafood.domain.exception.EntidadeNaoEncontradaException;
 import io.github.alextonycloud.algafood.domain.model.Cidade;
 import io.github.alextonycloud.algafood.domain.model.Cozinha;
@@ -69,13 +70,15 @@ public class EstadoController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Cidade> deletar(@PathVariable Long id) {
+	public ResponseEntity<?> deletar(@PathVariable Long id) {
 		try {
 			estadoService.deletar(id);
 			return ResponseEntity.noContent().build();
-		} catch (EntidadeNaoEncontradaException e) {
-			return ResponseEntity.notFound().build();
-
+			
+		}catch (EntidadeEmUsoException e) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+		}catch (EntidadeNaoEncontradaException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 
 	}

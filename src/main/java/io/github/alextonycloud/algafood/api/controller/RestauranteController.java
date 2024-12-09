@@ -1,6 +1,7 @@
 package io.github.alextonycloud.algafood.api.controller;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.alextonycloud.algafood.domain.exception.EntidadeNaoEncontradaException;
 import io.github.alextonycloud.algafood.domain.model.Restaurante;
+import io.github.alextonycloud.algafood.domain.repository.RestauranteRepository;
 import io.github.alextonycloud.algafood.domain.service.RestauranteService;
 
 @RestController
@@ -44,6 +46,27 @@ public class RestauranteController {
 		Restaurante restaurante = restauranteService.buscar(id);
 		if (restaurante != null) {
 			return ResponseEntity.ok().body(restaurante);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	
+	@GetMapping("/por-taxa-frete")
+	public ResponseEntity<List<Restaurante>> restaurantesPorTaxaFrete(BigDecimal taxaInicial, BigDecimal taxaFinal) {
+		List<Restaurante> restaurantes = restauranteService.buscarTaxaFrete(taxaInicial, taxaFinal);
+		if (!restaurantes.isEmpty()) {
+			return ResponseEntity.ok().body(restaurantes);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	@GetMapping("/por-nome")
+	public ResponseEntity<List<Restaurante>> restaurantesPorTaxaFrete(String nome, Long id) {
+		List<Restaurante> restaurantes = restauranteService.findByNomeContainingAndCozinhaId(nome, id);
+		if (!restaurantes.isEmpty()) {
+			return ResponseEntity.ok().body(restaurantes);
 		} else {
 			return ResponseEntity.notFound().build();
 		}

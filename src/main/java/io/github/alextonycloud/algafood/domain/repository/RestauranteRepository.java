@@ -1,16 +1,21 @@
 package io.github.alextonycloud.algafood.domain.repository;
 
+
+import java.math.BigDecimal;
 import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import io.github.alextonycloud.algafood.domain.model.Restaurante;
 
-public interface RestauranteRepository {
+@Repository
+public interface RestauranteRepository extends JpaRepository<Restaurante, Long>{
 	
-	public List<Restaurante> listar();
-	
-	public Restaurante salvar(Restaurante restaurante) ;
-	
-	public Restaurante buscar(Long id);
-	
-	public void remover(Restaurante restaurante);
 
+	List<Restaurante> findByTaxaFreteBetween(BigDecimal taxaInicial, BigDecimal taxaFinal);
+	
+	List<Restaurante> findByNomeContainingAndCozinhaId(String nome, Long cozinha);
+	
+	
 }

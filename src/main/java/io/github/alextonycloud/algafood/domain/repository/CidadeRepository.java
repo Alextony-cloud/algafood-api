@@ -1,16 +1,11 @@
 package io.github.alextonycloud.algafood.domain.repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import io.github.alextonycloud.algafood.domain.model.Cidade;
 
-public interface CidadeRepository {
+@Repository
+public interface CidadeRepository extends JpaRepository<Cidade, Long> {
 	
-	public List<Cidade> listar();
-	
-	public Cidade salvar(Cidade cidade) ;
-	
-	public Cidade buscar(Long id);
-	
-	public void remover(Long id);
-
 }

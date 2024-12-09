@@ -1,16 +1,13 @@
 package io.github.alextonycloud.algafood.domain.repository;
 
-import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import io.github.alextonycloud.algafood.domain.model.Estado;
 
-public interface EstadoRepository {
+@Repository
+public interface EstadoRepository  extends JpaRepository<Estado, Long>{
 	
-	public List<Estado> listar();
-	
-	public Estado salvar(Estado estado) ;
-	
-	public Estado buscar(Long id);
-	
-	public void remover(Long id);
 
 }
