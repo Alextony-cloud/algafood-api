@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,20 @@ public class RestauranteController {
 		} else {
 			return ResponseEntity.notFound().build();
 		}
+	}
+	@GetMapping("/por-primeiro-nome")
+	public ResponseEntity<Optional<Restaurante>> buscarRestaurantesPorPrimeiroNome(String nome) {
+		Optional<Restaurante> restaurante = restauranteService.buscarRestaurantesPorPrimeiroNome(nome);
+		if (restaurante.isPresent()) {
+			return ResponseEntity.ok().body(restaurante);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	@GetMapping("/count")
+	public int countRestaurantePorCozinha(Long id) {
+		return restauranteService.countRestaurantePorCozinha(id);
 	}
 
 	@PostMapping

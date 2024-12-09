@@ -2,6 +2,7 @@ package io.github.alextonycloud.algafood.domain.service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,14 @@ public class RestauranteService {
 
 	public List<Restaurante> findByNomeContainingAndCozinhaId(String nome, Long id) {
 		return restauranteRepository.findByNomeContainingAndCozinhaId(nome, id);
+	}
+
+	public Optional<Restaurante> buscarRestaurantesPorPrimeiroNome(String nome) {
+		return restauranteRepository.findFirstRestauranteByNomeContaining(nome);
+	}
+
+	public int countRestaurantePorCozinha(Long id) {
+		return restauranteRepository.countByCozinhaId(id);
 	}
 
 }
